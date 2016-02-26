@@ -1,21 +1,33 @@
-#How to find K most occuring elements"
-import heapq
+from heapq import *
 
-def findKMOE(L, K):
-    H = {}
-    heap = [] #max heap
-    for item in L:
-        if item not in L:
-            H[item] = 1
-            heap.heappush((-1, H[item]))
-        
+def KMOE(L, k):
+    hashMap = {}
+    for num in L:
+
+        if num not in hashMap.keys():
+            hashMap[num] = 1
+
         else:
-            H[item] += 1
-            heap.updatekey #figure out how to update
-
-
-    for i in range(0, K):
-        print(i)
-
+            hashMap[num] += 1
         
+   
 
+    kHeap = []
+
+    for key, value in hashMap.items():
+        heappush(kHeap, (-value, key)) #max heap push
+
+
+    kMost = []
+
+    while(k > 0):
+        popped = heappop(kHeap)
+        kMost.append((popped[1], -popped[0]))
+        k -= 1
+
+    return kMost
+
+if __name__ == '__main__':
+    L = [1, 2, 2, 1, 1, 3, 4, 3, 3, 5, 5, 5, 5]
+
+    print(KMOE(L, 4)) 
